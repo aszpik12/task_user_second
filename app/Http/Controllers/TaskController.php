@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -16,10 +17,12 @@ class TaskController extends Controller
     public function show($id)
     {
         $tasks = response()->json(Task::find($id));
+        return $tasks;
     }
 
     public function destroy($id){
-        Task::find($id)->delete();    
+        Task::find($id)->delete();
+        return redirect('/Task/list');    
     }
     
     public function store(Request $request){
@@ -30,6 +33,7 @@ class TaskController extends Controller
     $tasks->user_id = $request->user_id;
     $tasks->status = $request->status;
     $tasks->save();
+    return redirect('/Task/list');
     }
 
     public function update(Request $request, $id){
@@ -40,5 +44,22 @@ class TaskController extends Controller
         $tasks->user_id = $request->user_id;
         $tasks->status = $request->status;
         $tasks->save();
+        return redirect('/Task/list');
+    }
+
+    public function newView(){
+        $users = User::all();
+        return view('task.new', ['users' => $users]);
+    }
+
+    public function editView($id){
+        $users = User::all();
+        $tasks = Task::find($id);
+        return view('task.edit  ', ['users' => $users, 'task' => $tasks]);
+    }
+
+    public function listView(){
+        $tasks = Task::all();
+        return view('task.list', ['tasks' => $tasks]);
     }
 }

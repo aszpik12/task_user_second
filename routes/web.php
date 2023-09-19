@@ -19,4 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/api/tasks', [TaskController::class, 'index']);
+Route::get('/api/tasks/{id}', [TaskController::class, 'show']);
+//view utvonalak
+Route::get('/task/new', [TaskController::class, 'newView']);
+Route::get('/task/edit/{id}', [TaskController::class, 'editView']);
+Route::get('/task/list', [TaskController::class, 'listView']);
+Route::get('/api/users', [UserController::class, 'index']);
+Route::get('/user/new', [UserController::class, 'newView']);
+Route::get('/user/edit/{id}', [UserController::class, 'editView']);
+Route::get('/user/list', [UserController::class, 'listView']);
+
 //require __DIR__ . '/auth.php';
