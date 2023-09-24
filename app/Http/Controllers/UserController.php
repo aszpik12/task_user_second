@@ -6,23 +6,21 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+
+class USerController extends Controller
 {
-    public function index()
-    {
-        $users = response()->json(User::all());
-        return $users;
-    }
+public function index(){
+    $users = response()->json(User::all());
+    return $users;
+}
+public function show($id){
+    $user = response()->json(User::find($id));
+    return $user;
+}
 
-    public function show($id)
-    {
-        $users = response()->json(User::find($id));
-        return $users;
-    }
-
-    public function listView(){
-        $users = User::all();
-        return view('user.list', ['users' => $users]);
-    }
-
+public function listView()
+{
+$users = Task::all();
+return view('user.list', ['tasks' => $users]);
+}
 }
